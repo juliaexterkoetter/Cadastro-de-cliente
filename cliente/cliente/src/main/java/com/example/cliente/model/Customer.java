@@ -21,17 +21,14 @@ public class Customer {
     private Long id;
 
     @NotBlank
-    @Column(length = 200)
     private String name;
 
     @NotBlank
     @Email
-    @Column(unique = true, length = 100)
     private String email;
 
     @NotBlank
-    @Pattern(regexp="(^$|[0-9]{11})")
-    @Column(length = 20)
+    @Pattern(regexp = "(^$|[0-9]{11})")
     private String phone;
 
     @NotBlank
