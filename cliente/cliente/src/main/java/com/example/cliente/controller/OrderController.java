@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.cliente.exception.NotFoundException;
 import com.example.cliente.service.OrderService;
 import com.example.cliente.model.Order;
 
@@ -32,7 +33,7 @@ public class OrderController {
     public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         Optional<Order> order = orderService.getOrderById(id);
         return order.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new NotFoundException("Pedido não encontrado com o ID: " + id));
     }
 
     @PostMapping
@@ -47,7 +48,7 @@ public class OrderController {
         if (updatedOrder != null) {
             return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Cliente não encontrado com o ID: " + id);
         }
     }
 

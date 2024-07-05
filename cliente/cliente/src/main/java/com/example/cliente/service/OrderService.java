@@ -2,6 +2,7 @@ package com.example.cliente.service;
 
 import com.example.cliente.repository.OrderRepository;
 import com.example.cliente.model.Order;
+import com.example.cliente.exception.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,10 @@ public class OrderService {
     }
 
     public void deleteOrder(Long id) {
+        if(!orderRepository.existsById(id)) {
+            throw new NotFoundException("Pedido não encontrado com o ID: " + id);
+        }
+        
         orderRepository.deleteById(id);
     }
 }
