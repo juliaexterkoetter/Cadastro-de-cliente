@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.cliente.model.Customer;
 import com.example.cliente.exception.BadRequestException;
 import com.example.cliente.exception.InternalServerErrorException;
 import com.example.cliente.exception.NotFoundException;
-import com.example.cliente.model.Customer;
 import com.example.cliente.service.CustomerService;
 
 @RestController
@@ -60,7 +60,7 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Customer> findCustomerById(@PathVariable Long id) {
-        try {
+        /*try {
             Customer customer = customerService.findCustomerById(id);
             return ResponseEntity.ok(customer);
         } catch (NotFoundException ex) {
@@ -69,7 +69,10 @@ public class CustomerController {
             throw new BadRequestException("Erro na requisição.");
         } catch (InternalServerErrorException ex) {
             throw new InternalServerErrorException("Erro interno no servidor.");
-        }
+        }*/
+        
+        Customer customer = customerService.findCustomerById(id);
+        return ResponseEntity.ok(customer);
     }
 
     @GetMapping

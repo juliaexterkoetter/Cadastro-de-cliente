@@ -7,8 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.example.cliente.exception.CustomerNotFoundException;
+
 import com.example.cliente.model.Customer;
+import com.example.cliente.exception.NotFoundException;
 import com.example.cliente.repository.CustomerRepository;
 
 @Service
@@ -38,13 +39,13 @@ public class CustomerService {
             existingCustomer.setDocumentNumber(customer.getDocumentNumber());
             return customerRepository.save(existingCustomer);
         } else {
-            throw new CustomerNotFoundException("Cliente não encontrado com o ID: " + id);
+            throw new NotFoundException("Cliente não encontrado com o ID: " + id);
         }
     }
 
     public Customer findCustomerById(Long id) {
         return customerRepository.findById(id)
-                                .orElseThrow(() -> new CustomerNotFoundException("Cliente não encontrado com o ID: " + id));
+                                .orElseThrow(() -> new NotFoundException("Cliente não encontrado com o ID: " + id));
     }
 
     public List<Customer> findAllCustomers() {
