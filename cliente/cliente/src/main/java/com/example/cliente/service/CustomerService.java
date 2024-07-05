@@ -54,6 +54,10 @@ public class CustomerService {
 
     @Transactional
     public void deleteCustomer(Long id) {
+        if (!customerRepository.existsById(id)) {
+            throw new NotFoundException("Cliente não encontrado com o ID: " + id);
+        }
+        
         customerRepository.deleteById(id);
     }
 }

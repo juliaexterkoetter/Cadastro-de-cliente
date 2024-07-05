@@ -33,67 +33,32 @@ public class CustomerController {
     }
 
     @PostMapping
-        public ResponseEntity<Customer> registerCustomer(@Valid @RequestBody Customer customer) {
-        try {
-            Customer newCustomer = customerService.registerCustomer(customer);
-            return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
-        } catch (BadRequestException ex) {
-            throw new BadRequestException("Erro na requisição.");
-        } catch (InternalServerErrorException ex) {
-            throw new InternalServerErrorException("Erro interno no servidor.");
-        }
+    public ResponseEntity<Customer> registerCustomer(@Valid @RequestBody Customer customer) {
+        Customer newCustomer = customerService.registerCustomer(customer);
+        return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @Valid @RequestBody Customer customer) {
-        try {
-            Customer updatedCustomer = customerService.updateCustomer(id, customer);
-            return ResponseEntity.ok(updatedCustomer);
-        } catch (NotFoundException ex) {
-            throw new NotFoundException("ID não encontrado.");
-        } catch (BadRequestException ex) {
-            throw new BadRequestException("Erro na requisição.");
-        } catch (InternalServerErrorException ex) {
-            throw new InternalServerErrorException("Erro interno no servidor.");
-        }
+        Customer updatedCustomer = customerService.updateCustomer(id, customer);
+        return ResponseEntity.ok(updatedCustomer);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Customer> findCustomerById(@PathVariable Long id) {
-        /*try {
-            Customer customer = customerService.findCustomerById(id);
-            return ResponseEntity.ok(customer);
-        } catch (NotFoundException ex) {
-            throw new NotFoundException("ID não encontrado.");
-        } catch (BadRequestException ex) {
-            throw new BadRequestException("Erro na requisição.");
-        } catch (InternalServerErrorException ex) {
-            throw new InternalServerErrorException("Erro interno no servidor.");
-        }*/
-        
         Customer customer = customerService.findCustomerById(id);
         return ResponseEntity.ok(customer);
     }
 
     @GetMapping
     public ResponseEntity<List<Customer>> findAllCustomers() {
-        try {
-            List<Customer> customers = customerService.findAllCustomers();
-            return ResponseEntity.ok(customers);
-        } catch (InternalServerErrorException ex) {
-            throw new InternalServerErrorException("Erro interno no servidor.");
-        }
+        List<Customer> customers = customerService.findAllCustomers();
+        return ResponseEntity.ok(customers);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
-        try {
-            customerService.deleteCustomer(id);
-            return ResponseEntity.noContent().build();
-        } catch (NotFoundException ex) {
-            throw new NotFoundException("ID não encontrado.");
-        } catch (InternalServerErrorException ex) {
-            throw new InternalServerErrorException("Erro interno no servidor.");
-        }
+        customerService.deleteCustomer(id);
+        return ResponseEntity.noContent().build();
     }
 }

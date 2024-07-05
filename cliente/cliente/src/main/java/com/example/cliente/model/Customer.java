@@ -24,18 +24,18 @@ public class Customer {
     @NotBlank(message = "O nome é obrigatório!")
     private String name;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "O e-mail é obrigatório!")
+    @Email(message = "O e-mail deve ser um e-mail válido!")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "O telefone é obrigatório!")
     //@Pattern(regexp = "(^$|[0-9]{11})")
-    @Pattern(regexp = "(^$|\\([0-9]{2}\\) [0-9]{4}-[0-9]{4})")
+    @Pattern(regexp = "(^$|\\([0-9]{2}\\) [0-9]{4}-[0-9]{4})", message = "O telefone deve ser no formato (99) 9999-9999")
     private String phone;
 
-    @NotBlank
+    @NotBlank(message = "O CPF é obrigatório!")
     @Column(unique = true, length = 14)
-    @Pattern(regexp = "(^$|[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2})")
+    @Pattern(regexp = "(^$|[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2})", message = "O CPF deve ter o formato 999.999.999-99")
     private String documentNumber;
 
     private LocalDate registrationDate;
