@@ -48,7 +48,7 @@ public class OrderController {
         if (updatedOrder != null) {
             return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
         } else {
-            throw new NotFoundException("Cliente não encontrado com o ID: " + id);
+            throw new NotFoundException("Pedido não encontrado com o ID: " + id);
         }
     }
 

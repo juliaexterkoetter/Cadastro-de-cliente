@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 
 import com.example.cliente.model.Customer;
 import com.example.cliente.exception.NotFoundException;
@@ -43,6 +44,7 @@ public class CustomerService {
         }
     }
 
+    @Cacheable(value = "customers", key = "#id")
     public Customer findCustomerById(Long id) {
         return customerRepository.findById(id)
                                 .orElseThrow(() -> new NotFoundException("Cliente não encontrado com o ID: " + id));
